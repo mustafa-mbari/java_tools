@@ -15,7 +15,25 @@ import java.util.TreeMap;
 public class XMLObjectIdAnalyzer {
 
     // Constant for XML file name
-    private static final String XML_FILE_NAME = "C:\\Users\\g7ambam23a\\OneDrive - KUKA AG\\Desktop\\test\\lg.xml";
+    private static final String XML_FILE_NAME = "C:\\Users\\g7ambam23a\\OneDrive - KUKA AG\\Desktop\\test\\First-Floor.xml";
+
+    // ANSI Color codes for terminal output
+    private static final String RESET = "\u001B[0m";
+    private static final String RED = "\u001B[31m";
+    private static final String GREEN = "\u001B[32m";
+    private static final String YELLOW = "\u001B[33m";
+    private static final String BLUE = "\u001B[34m";
+    private static final String PURPLE = "\u001B[35m";
+    private static final String CYAN = "\u001B[36m";
+    private static final String WHITE = "\u001B[37m";
+    private static final String BOLD = "\u001B[1m";
+    private static final String BRIGHT_RED = "\u001B[91m";
+    private static final String BRIGHT_GREEN = "\u001B[92m";
+    private static final String BRIGHT_YELLOW = "\u001B[93m";
+    private static final String BRIGHT_BLUE = "\u001B[94m";
+    private static final String BRIGHT_PURPLE = "\u001B[95m";
+    private static final String BRIGHT_CYAN = "\u001B[96m";
+    private static final String BRIGHT_WHITE = "\u001B[97m";
 
     public static void main(String[] args) {
         try {
@@ -55,15 +73,15 @@ public class XMLObjectIdAnalyzer {
             printResults(objectIdCounts, objectIdToClassname);
 
         } catch (Exception e) {
-            System.err.println("Error processing XML file: " + e.getMessage());
+            System.err.println(BRIGHT_RED + "Error processing XML file: " + e.getMessage() + RESET);
             e.printStackTrace();
         }
     }
 
     private static void printResults(Map<String, Integer> objectIdCounts, Map<String, String> objectIdToClassname) {
-        System.out.println("=====================================");
-        System.out.println("    DUPLICATED OBJECT ID ANALYSIS    ");
-        System.out.println("=====================================");
+        System.out.println(BOLD + BRIGHT_CYAN + "=====================================" + RESET);
+        System.out.println(BOLD + BRIGHT_CYAN + "    DUPLICATED OBJECT ID ANALYSIS    " + RESET);
+        System.out.println(BOLD + BRIGHT_CYAN + "=====================================" + RESET);
         System.out.println();
 
         // Use TreeMap to sort results alphabetically
@@ -95,33 +113,33 @@ public class XMLObjectIdAnalyzer {
             if (shouldPrint) {
                 foundDuplicates = true;
                 totalDuplicatesShown++;
-                System.out.printf("┌─ ObjectId: %s%n", objectId);
-                System.out.printf("├─ Classname: %s%n", classname);
-                System.out.printf("├─ Count: %d times%n", count);
-                System.out.printf("└─ Status: %s%n", getStatusMessage(count, classname));
+                System.out.printf(BLUE + "┌─ " + BRIGHT_YELLOW + "ObjectId: " + BRIGHT_GREEN + "%s" + RESET + "%n", objectId);
+                System.out.printf(BLUE + "├─ " + BRIGHT_PURPLE + "Classname: " + WHITE + "%s" + RESET + "%n", classname);
+                System.out.printf(BLUE + "├─ " + CYAN + "Count: " + BRIGHT_RED + "%d times" + RESET + "%n", count);
+                System.out.printf(BLUE + "└─ " + YELLOW + "Status: " + RESET + "%s" + RESET + "%n", getStatusMessage(count, classname));
                 System.out.println();
             }
         }
 
         if (!foundDuplicates) {
-            System.out.println("No duplicated ObjectIds found meeting the specified criteria.");
+            System.out.println(BRIGHT_RED + "No duplicated ObjectIds found meeting the specified criteria." + RESET);
             System.out.println();
-            System.out.println("Criteria applied:");
-            System.out.println("• DistanceSensor/ConveyorGroup: Must appear more than 3 times");
-            System.out.println("• All other classes: Must appear more than 1 time");
+            System.out.println(BRIGHT_YELLOW + "Criteria applied:" + RESET);
+            System.out.println(CYAN + "• DistanceSensor/ConveyorGroup: Must appear more than 3 times" + RESET);
+            System.out.println(CYAN + "• All other classes: Must appear more than 1 time" + RESET);
         }
 
-        System.out.println("=====================================");
-        System.out.printf("Total unique ObjectIds: %d%n", objectIdCounts.size());
-        System.out.printf("Total duplicated ObjectIds shown: %d%n", totalDuplicatesShown);
-        System.out.println("=====================================");
+        System.out.println(BOLD + BRIGHT_CYAN + "=====================================" + RESET);
+        System.out.printf(GREEN + "Total unique ObjectIds: " + BRIGHT_WHITE + "%d" + RESET + "%n", objectIdCounts.size());
+        System.out.printf(PURPLE + "Total duplicated ObjectIds shown: " + BRIGHT_WHITE + "%d" + RESET + "%n", totalDuplicatesShown);
+        System.out.println(BOLD + BRIGHT_CYAN + "=====================================" + RESET);
     }
 
     private static String getStatusMessage(int count, String classname) {
         if ("DistanceSensor".equals(classname) || "ConveyorGroup".equals(classname)) {
-            return String.format("DUPLICATE (Special class - threshold: >3, found: %d)", count);
+            return BRIGHT_RED + "DUPLICATE " + RESET + WHITE + "(Special class - threshold: >3, found: " + BRIGHT_RED + count + WHITE + ")" + RESET;
         } else {
-            return String.format("DUPLICATE (Regular class - threshold: >1, found: %d)", count);
+            return BRIGHT_GREEN + "DUPLICATE " + RESET + WHITE + "(Regular class - threshold: >1, found: " + BRIGHT_GREEN + count + WHITE + ")" + RESET;
         }
     }
 
