@@ -1,9 +1,11 @@
 package com.visu.layout;
 
 import java.io.*;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 public class ViewObjectCleaner {
-    public static final String CLASS_NAME_TO_DELETE = "MonorailBlock";
+    private static final Logger logger = Logger.getLogger(ViewObjectCleaner.class.getName());
 
     public static void main(String[] args) {
         String inputFile = "C:\\Users\\g7ambam23a\\OneDrive - KUKA AG\\Desktop\\ViewObjectCleaner\\First-Floor.xml";
@@ -55,7 +57,7 @@ public class ViewObjectCleaner {
             System.out.println("Cleaning done successfully.");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Error during cleaning process", e);
         }
     }
 }
