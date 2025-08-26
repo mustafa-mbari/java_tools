@@ -11,8 +11,12 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class XMLObjectIdAnalyzer {
+
+    private static final Logger logger = Logger.getLogger(XMLObjectIdAnalyzer.class.getName());
 
     // Constant for XML file name
     private static final String XML_FILE_NAME = "C:\\Users\\g7ambam23a\\OneDrive - KUKA AG\\Desktop\\test\\First-Floor.xml";
@@ -74,7 +78,7 @@ public class XMLObjectIdAnalyzer {
 
         } catch (Exception e) {
             System.err.println(BRIGHT_RED + "Error processing XML file: " + e.getMessage() + RESET);
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Exception occurred while processing XML file", e);
         }
     }
 
